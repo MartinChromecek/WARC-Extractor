@@ -32,3 +32,5 @@ with open("output.csv", "w", encoding='utf-8', newline='') as file:
     for i in range(len(dates)):
         data = [dates[i], urls[i], licence_info[i], decoded_content[i]]
         writer.writerow(data)
+
+test = 1
