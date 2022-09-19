@@ -7,6 +7,7 @@ content = []
 dates = []
 headers = []
 urls = []
+licence_info = []
 
 for record in ArchiveIterator(stream, parse_http=False):
     date = record.record_date
@@ -18,6 +19,7 @@ for record in ArchiveIterator(stream, parse_http=False):
 
 for header in headers:
     urls.append(header['WARC-Target-URI'])
+    licence_info.append(header['c4_license'])
 
 decoded_content = []
 
@@ -25,8 +27,8 @@ for item in content:
     decoded = item.decode('utf-8')
     decoded_content.append(decoded)
 
-with open("output.csv", "w", encoding='utf-8') as file:
-    writer = csv.writer(file, delimiter='\n')
+with open("output.csv", "w", encoding='utf-8', newline='') as file:
+    writer = csv.writer(file)
     for i in range(len(dates)):
-        data = [dates[i], urls[i], decoded_content[i]]
+        data = [dates[i], urls[i], licence_info[i], decoded_content[i]]
         writer.writerow(data)
